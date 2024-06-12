@@ -71,11 +71,10 @@
     @apply border-border;
   }
   body {
-    background: url("../public/bg.png");
+    background: url('../public/bg.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     color: var(--foreground);
   }
 }
-
