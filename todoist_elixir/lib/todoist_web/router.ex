@@ -7,6 +7,8 @@ defmodule TodoistWeb.Router do
 
   scope "/api", TodoistWeb do
     pipe_through :api
+
+    resources "/tasks", TaskController, except: [:new, :edit]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
