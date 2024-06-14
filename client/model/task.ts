@@ -1,6 +1,6 @@
 export type Task = {
   id: string
   title: string
-  isImportant: boolean
+  is_important: boolean
   status: 'completed' | 'uncompleted'
 }
