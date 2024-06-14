@@ -70,11 +70,23 @@ const config = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' }
+        },
+        'task-complete': {
+          '0%': {
+            transform: 'scale(1.0) rotate(0deg)'
+          },
+          '50%': {
+            transform: 'scale(0.8) rotate(30deg)'
+          },
+          '100%': {
+            transform: 'scale(1.0) rotate(0deg)'
+          }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'task-complete': 'task-complete 0.5s ease-in-out'
       }
     }
   },
