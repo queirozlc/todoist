@@ -1,5 +1,7 @@
 # Todoist
 
+To properly run this project you'll must have elixir installed, [check the official docs](https://elixir-lang.org/install.html)
+
 To start your Phoenix server:
 
   * Run `mix setup` to install and setup dependencies
