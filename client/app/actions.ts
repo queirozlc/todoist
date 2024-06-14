@@ -1,5 +1,6 @@
 'use server'
 
+import { Task } from '@/model/task'
 import { revalidateTag } from 'next/cache'
 
 export async function createTask(formData: FormData) {
@@ -32,62 +33,27 @@ export async function createTask(formData: FormData) {
   }
 }
 
-export async function markTaskAsCompleted(id: string) {
-  try {
-    await fetch(`http://localhost:4000/api/tasks/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ task: { status: 'completed' } })
-    })
-  } catch (error) {
-    throw new Error('Failed to mark task as completed')
-  }
-  revalidateTag('tags_index')
+type Payload = {
+  task: Omit<Task, 'id'>
 }
-
-export async function markTaskAsUncompleted(id: string) {
+// rewrite all update functions in order to prioritize code reuse
+export async function updateTask({
+  id,
+  payload
+}: {
+  id: string
+  payload: Partial<Payload['task']>
+}) {
   try {
     await fetch(`http://localhost:4000/api/tasks/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ task: { status: 'uncompleted' } })
+      body: JSON.stringify({ task: payload })
     })
   } catch (error) {
-    throw new Error('Failed to mark task as uncompleted')
-  }
-  revalidateTag('tags_index')
-}
-
-export async function markAsImportant(id: string) {
-  try {
-    await fetch(`http://localhost:4000/api/tasks/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ task: { is_important: true } })
-    })
-  } catch (error) {
-    throw new Error('Failed to mark task as important')
-  }
-  revalidateTag('tags_index')
-}
-
-export async function markAsUnimportant(id: string) {
-  try {
-    await fetch(`http://localhost:4000/api/tasks/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ task: { is_important: false } })
-    })
-  } catch (error) {
-    throw new Error('Failed to mark task as unimportant')
+    throw new Error('Failed to update task')
   }
   revalidateTag('tags_index')
 }

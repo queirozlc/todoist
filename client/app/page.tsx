@@ -28,6 +28,8 @@ async function getTasksData() {
 
 export default async function Home() {
   const { data } = await getTasksData()
+  const importantTasks = data.filter((task) => task.is_important)
+  const regularTasks = data.filter((task) => !task.is_important)
 
   return (
     <>
@@ -42,6 +44,12 @@ export default async function Home() {
 
       <main className="h-screen pt-20 container lg:max-w-[800px]">
         <Typography variant={'h4'} className="mt-5">
+          Importants 📌
+        </Typography>
+
+        <TaskCard tasks={importantTasks} />
+
+        <Typography variant={'h4'} className="mt-5">
           Tasks 📝
         </Typography>
 
@@ -50,7 +58,7 @@ export default async function Home() {
         </div>
 
         {/* Task */}
-        <TaskCard tasks={data} />
+        <TaskCard tasks={regularTasks} />
 
         <NewTaskForm />
       </main>
