@@ -12,7 +12,7 @@ defmodule Todoist.TasksFixtures do
       attrs
       |> Enum.into(%{
         is_important: true,
-        status: "some status",
+        status: :uncompleted,
         title: "some title"
       })
       |> Todoist.Tasks.create_task()

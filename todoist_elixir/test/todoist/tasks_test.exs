@@ -1,5 +1,5 @@
 defmodule Todoist.TasksTest do
-  use Todoist.DataCase
+  use Todoist.DataCase, async: true
 
   alias Todoist.Tasks
 
@@ -21,10 +21,10 @@ defmodule Todoist.TasksTest do
     end
 
     test "create_task/1 with valid data creates a task" do
-      valid_attrs = %{status: "some status", title: "some title", is_important: true}
+      valid_attrs = %{status: :uncompleted, title: "some title", is_important: true}
 
       assert {:ok, %Task{} = task} = Tasks.create_task(valid_attrs)
-      assert task.status == "some status"
+      assert task.status == :uncompleted
       assert task.title == "some title"
       assert task.is_important == true
     end
@@ -35,10 +35,15 @@ defmodule Todoist.TasksTest do
 
     test "update_task/2 with valid data updates the task" do
       task = task_fixture()
-      update_attrs = %{status: "some updated status", title: "some updated title", is_important: false}
+
+      update_attrs = %{
+        status: :completed,
+        title: "some updated title",
+        is_important: false
+      }
 
       assert {:ok, %Task{} = task} = Tasks.update_task(task, update_attrs)
-      assert task.status == "some updated status"
+      assert task.status == :completed
       assert task.title == "some updated title"
       assert task.is_important == false
     end

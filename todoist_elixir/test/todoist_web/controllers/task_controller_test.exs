@@ -1,17 +1,17 @@
 defmodule TodoistWeb.TaskControllerTest do
-  use TodoistWeb.ConnCase
+  use TodoistWeb.ConnCase, async: true
 
   import Todoist.TasksFixtures
 
   alias Todoist.Tasks.Task
 
   @create_attrs %{
-    status: "some status",
+    status: :uncompleted,
     title: "some title",
     is_important: true
   }
   @update_attrs %{
-    status: "some updated status",
+    status: :completed,
     title: "some updated title",
     is_important: false
   }
@@ -38,7 +38,7 @@ defmodule TodoistWeb.TaskControllerTest do
       assert %{
                "id" => ^id,
                "is_important" => true,
-               "status" => "some status",
+               "status" => "uncompleted",
                "title" => "some title"
              } = json_response(conn, 200)["data"]
     end
@@ -61,7 +61,7 @@ defmodule TodoistWeb.TaskControllerTest do
       assert %{
                "id" => ^id,
                "is_important" => false,
-               "status" => "some updated status",
+               "status" => "completed",
                "title" => "some updated title"
              } = json_response(conn, 200)["data"]
     end
