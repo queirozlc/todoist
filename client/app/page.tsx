@@ -2,6 +2,7 @@ import { MobileBottomSheet } from '@/components/mobile-bottom-sheet'
 import { NewTaskForm } from '@/components/new-task-form'
 import { TaskCard } from '@/components/task-card'
 import { Typography } from '@/components/ui/typography'
+import { env } from '@/lib/envs'
 import { cn } from '@/lib/utils'
 import { Task } from '@/model/task'
 import { JetBrains_Mono } from 'next/font/google'
@@ -14,7 +15,8 @@ const titleFont = JetBrains_Mono({
 })
 
 async function getTasksData() {
-  const response = await fetch('http://localhost:4000/api/tasks', {
+  const url = `${env.API_URL}/tasks`
+  const response = await fetch(url, {
     next: {
       tags: ['tags_index'],
       revalidate: 1

@@ -1,5 +1,6 @@
 'use server'
 
+import { env } from '@/lib/envs'
 import { Task } from '@/model/task'
 import { revalidateTag } from 'next/cache'
 
@@ -20,7 +21,7 @@ export async function createTask(formData: FormData) {
   }
 
   try {
-    await fetch('http://localhost:4000/api/tasks', {
+    await fetch(`${env.API_URL}/tasks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,7 +46,7 @@ export async function updateTask({
   payload: Partial<Payload['task']>
 }) {
   try {
-    await fetch(`http://localhost:4000/api/tasks/${id}`, {
+    await fetch(`${env.API_URL}/tasks/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
@@ -60,7 +61,7 @@ export async function updateTask({
 
 export async function removeTask(id: string) {
   try {
-    await fetch(`http://localhost:4000/api/tasks/${id}`, {
+    await fetch(`${env.API_URL}/tasks/${id}`, {
       method: 'DELETE'
     })
   } catch (error) {
