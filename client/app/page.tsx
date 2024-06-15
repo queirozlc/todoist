@@ -18,8 +18,7 @@ async function getTasksData() {
   const url = `${env.API_URL}/tasks`
   const response = await fetch(url, {
     next: {
-      tags: ['tags_index'],
-      revalidate: 1
+      tags: ['tags_index']
     }
   })
   if (!response.ok) {
